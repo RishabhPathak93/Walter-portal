@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Cyber CTF Arena design tokens — dark surface, terminal-green accents.
+   All text/background pairs meet WCAG AA contrast.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-bg: #060a08;
+  --color-surface: #0b120e;
+  --color-surface-2: #101a15;
+  --color-surface-3: #16231c;
+  --color-line: #1f3128;
+  --color-line-strong: #2c4538;
+  --color-fg: #e4efe8;
+  --color-muted: #93ad9f;
+  --color-subtle: #6d8a7b;
+
+  --color-accent: #3ee08a;
+  --color-accent-strong: #22c55e;
+  --color-accent-ink: #03140b;
+  --color-accent-soft: #3ee08a1f;
+
+  --color-danger: #ff7a7a;
+  --color-danger-soft: #ff7a7a1a;
+  --color-warn: #f5c451;
+  --color-warn-soft: #f5c4511a;
+  --color-info: #6cb8ff;
+  --color-info-soft: #6cb8ff1a;
+
+  --color-gold: #f5cf4a;
+  --color-silver: #c9d4dd;
+  --color-bronze: #e09552;
+
+  --animate-fade-in: fade-in 0.35s ease-out both;
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-bg);
+  }
+  body {
+    background:
+      radial-gradient(1200px 500px at 50% -200px, #3ee08a14, transparent 70%),
+      var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+  ::selection {
+    background: #3ee08a55;
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+}
+
+/* Faint scanline grid used on hero panels. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, #3ee08a0d 1px, transparent 1px),
+    linear-gradient(to bottom, #3ee08a0d 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # Throw-away PostgreSQL for the database integration tests.
+    # The tests apply the real migrations from supabase/migrations to a temporary database.
+    # Your Supabase project is never touched by CI.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Tests (unit, route authorization, PostgreSQL integration)
+        env:
+          TEST_DATABASE_URL: postgres://postgres@localhost:5432/postgres
+        run: npm test
+
+      - name: Production build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: npm run build

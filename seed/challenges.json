@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "locked-folder",
+    "title": "Locked Folder",
+    "category": "Web Security",
+    "difficulty": "Easy",
+    "sortOrder": 10,
+    "description": "Someone locked a folder on a web server and thinks that is enough to keep its contents private. Find a way to see what is inside and recover the flag.\n\nFlag format: flag{...}\n\n[Organizer: add the target URL and any access instructions here before activating this challenge.]"
+  },
+  {
+    "slug": "php-object-injection",
+    "title": "PHP Object Injection",
+    "category": "Web Security",
+    "difficulty": "Medium",
+    "sortOrder": 20,
+    "description": "A PHP application trusts serialized data that comes back from the client. Investigate how that data is handled, abuse it, and capture the flag.\n\nFlag format: flag{...}\n\n[Organizer: add the target URL and any access instructions here before activating this challenge.]"
+  },
+  {
+    "slug": "exif-ninja",
+    "title": "EXIF Ninja",
+    "category": "Forensics",
+    "difficulty": "Easy",
+    "sortOrder": 30,
+    "description": "Images often carry more than pixels. Examine the provided image's metadata closely to uncover the hidden flag.\n\nFlag format: flag{...}\n\n[Organizer: add the download link for the challenge image here before activating this challenge.]"
+  }
+]
